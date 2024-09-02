@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  db:
+    container_name: "PostgresWarehouseDB"
+    image: postgres:14.0-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: warehouse_user
+      POSTGRES_PASSWORD: warehouse_user_password
+      POSTGRES_DB: warehouse_db
+    ports:
+      - 5432:5432
+    volumes:
+      - ./storage/migrations:/docker-entrypoint-initdb.d/
+
+  app:
+    container_name: "JoesWarehouse"
+    build:
+      dockerfile: Dockerfile
+      context: .
+    links:
+      - "db:database"
+    depends_on:
+      - db
+    ports:
+      - 7000:7000
+    command: sh -c '/wait-for.sh db:5432 -- /app/main'
+    environment:
+      APPLICATION_MODE: release
+      DATABASE_CONNECTION: "postgres://warehouse_user:warehouse_user_password@db:5432/warehouse_db"
+      WEB_ASSET_LOCATION: "./web"
