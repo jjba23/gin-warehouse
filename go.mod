@@ -38,7 +38,7 @@ require (
 	github.com/gin-gonic/gin v1.7.4
 	github.com/jackc/pgx/v4 v4.13.0
 	github.com/maragudk/gomponents v0.18.0
-	golang.org/x/sys v0.0.0-20210823070655-63515b42dcdf // indirect
-	golang.org/x/text v0.3.6 // indirect
+	golang.org/x/sys v0.0.0-20220722155257-8c9f86f7a55f // indirect
+	golang.org/x/text v0.3.8 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
